@@ -8,21 +8,10 @@ const foodsRoutes = require('./routes/foods-routes');
 const ordersRoutes = require('./routes/orders-routes');
 const adminRoutes = require('./routes/admin-routes');
 
-
+const path = require('path');
 const app = express();
 app.use(bodyParser.json());
-
-
-app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader(
-      'Access-Control-Allow-Headers',
-      'Origin, X-Requested-With, Content-Type, Accept, Authorization'
-    );
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE');
-  
-    next();
-  });
+app.use(express.static(path.join('public')));
 
   let showdate=new Date();
   let dtdt=showdate.toDateString();
@@ -33,10 +22,9 @@ app.use((req, res, next) => {
   app.use('/api/foods', foodsRoutes);
   app.use('/api/restaurants', restaurantsRoutes);
   app.use('/api/admin', adminRoutes);
-  
+
   app.use((req, res, next) => {
-    const error = new HttpError('Could not find this route.', 404);
-    throw error;
+    res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
   });
   
   app.use((error, req, res, next) => {
@@ -58,18 +46,3 @@ app.use((req, res, next) => {
     });
   
     mongoose.set('useCreateIndex', true);
-
-
-
-
-
-    // [
-    //   {
-    //     name: 'Novi Burger',
-    //     image: '/images/pexels-burger.jpg',
-    //     id: '60d6f9a9f0aba035749c4ef51',
-    //     size: [ [Array], [Array] ],
-    //     chosenSize: 'velika 6 KM',
-    //     chosenTopping: [ '' ]
-    //   }
-    // ]
