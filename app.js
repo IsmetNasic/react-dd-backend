@@ -13,12 +13,13 @@ const app = express();
 app.use(bodyParser.json());
 app.use(express.static(path.join('public')));
 
-  let showdate=new Date();
-  let dtdt=showdate.toDateString();
+  // let showdate=new Date();
+  // let dtdt=showdate.toDateString();
 
-  if(showdate.getHours() > 9 && showdate.getHours() < 21 || dtdt[0] != "s" && dtdt[1] != "u") {
-    app.use('/api/orders', ordersRoutes);
-  }
+  // if(showdate.getHours() > 9 && showdate.getHours() < 21 || dtdt[0] != "s" && dtdt[1] != "u") {
+  //   app.use('/api/orders', ordersRoutes);
+  // }
+  app.use('/api/orders', ordersRoutes);
   app.use('/api/foods', foodsRoutes);
   app.use('/api/restaurants', restaurantsRoutes);
   app.use('/api/admin', adminRoutes);
