@@ -9,7 +9,7 @@ router.post(
   '/',
   [
     check('name').not().isEmpty(),
-    check('phone').isLength({ min: 6 }),
+    check('phone').not().isEmpty(),
     check('address').not().isEmpty(),
     // check('order')
   ],
